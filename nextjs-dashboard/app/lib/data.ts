@@ -9,17 +9,50 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
+
+
+export async function fetchStocks() {
+  try {
+    console.log('Fetching stock data...');
+
+    const data = await sql`
+      SELECT
+        stocks.name AS stock_name,
+        stocks.amount_held,
+        stocks.price,
+        stocks.date AS price_date,
+        customers.name AS customer_name,
+        customers.email AS customer_email,
+        customers.image_url AS customer_image
+      FROM stocks
+      JOIN customers ON stocks.customer_id = customers.id
+      ORDER BY stocks.date DESC
+    `;
+
+    console.log('Stock data fetch completed.');
+
+    return data.rows.map((stock) => ({
+      ...stock,
+      price: formatCurrency(stock.price), // Format the price for display
+      price_date: new Date(stock.price_date).toLocaleDateString(), // Format date
+    }));
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch stock data.');
+  }
+}
+
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    // console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
   } catch (error) {

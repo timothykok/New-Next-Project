@@ -144,4 +144,49 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
-export { users, customers, invoices, revenue };
+const stocks = [
+  {
+    customer_id: customers[0].id,
+    name: 'AAPL',
+    amount_held: 50,
+    price: 150.25,
+    date: '2023-12-01',
+  },
+  {
+    customer_id: customers[1].id,
+    name: 'GOOGL',
+    amount_held: 30,
+    price: 2800.75,
+    date: '2023-12-02',
+  },
+  {
+    customer_id: customers[2].id,
+    name: 'MSFT',
+    amount_held: 20,
+    price: 310.50,
+    date: '2023-12-03',
+  },
+  {
+    customer_id: customers[3].id,
+    name: 'TSLA',
+    amount_held: 10,
+    price: 650.75,
+    date: '2023-12-04',
+  },
+  {
+    customer_id: customers[4].id,
+    name: 'AMZN',
+    amount_held: 15,
+    price: 3450.00,
+    date: '2023-12-05',
+  },
+  {
+    customer_id: customers[5].id,
+    name: 'NFLX',
+    amount_held: 25,
+    price: 525.50,
+    date: '2023-12-06',
+  },
+];
+
+export { users, customers, invoices, revenue, stocks };
